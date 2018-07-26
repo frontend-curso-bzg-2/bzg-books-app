@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 
 import { routes } from "./routes.books";
-import { BooksMainComponent } from "./containers/books-main/books-main.component";
-import { BookDetailComponent } from "./containers/book-detail/book-detail.component";
+import { BooksMainComponent } from "./containers/books-main/";
+import { BookDetailComponent } from "./containers/book-detail/";
 
 @NgModule({
   imports: [

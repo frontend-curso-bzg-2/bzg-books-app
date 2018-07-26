@@ -4,11 +4,11 @@ import { RouterModule } from "@angular/router";
 import { AppPipesModule } from "../app-pipes/app-pipes.module";
 import { routes } from "./routes.core";
 import { CoreComponent } from './containers/core';
-import { AsideLeftComponent } from "./containers/aside-left/aside-left.component";
-import { MainContentComponent } from "./containers/main-content/main-content.component";
-import { TopNavAppComponent } from "./containers/top-nav-app/top-nav-app.component";
-import { MenuAsideLeftComponent } from "./components/menu-aside-left/menu-aside-left.component";
-import { TopAsideLeftComponent } from "./components/top-aside-left/top-aside-left.component";
+import { AsideLeftComponent } from "./containers/aside-left/";
+import { MainContentComponent } from "./containers/main-content/";
+import { TopNavAppComponent } from "./containers/top-nav-app/";
+import { MenuAsideLeftComponent } from "./components/menu-aside-left/";
+import { TopAsideLeftComponent } from "./components/top-aside-left/";
 
 @NgModule({
   imports: [

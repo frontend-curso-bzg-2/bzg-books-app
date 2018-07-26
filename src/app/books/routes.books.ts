@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { BooksMainComponent } from "./containers/books-main/books-main.component";
-import { BookDetailComponent } from "./containers/book-detail/book-detail.component";
+import { BooksMainComponent } from "./containers/books-main/";
+import { BookDetailComponent } from "./containers/book-detail/";
 
 export const routes: Routes = [
     {
@@ -13,8 +13,5 @@ export const routes: Routes = [
     {
         path: 'detail/:id',
         component: BookDetailComponent
-    },
-    {
-        path: '**', redirectTo: 'list', pathMatch: 'full'
     }
 ];
