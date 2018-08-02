@@ -15,12 +15,13 @@ export class BooksMainComponent implements OnInit {
     this.booksList = [];
   }
 
-  ngOnInit() {
-    console.log("entra");
+  ngOnInit() {    
     this.bookService.getBookList()
     .subscribe(
       books => {
-        this.booksList = books;
+        if(books){
+          this.booksList = books;
+        }        
       }
     );
   }

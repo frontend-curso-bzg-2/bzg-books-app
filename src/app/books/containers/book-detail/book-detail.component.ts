@@ -23,8 +23,10 @@ export class BookDetailComponent implements OnInit {
       id = params.id;
       this.bookService.getBookList(id)
         .subscribe(
-          books => {            
-            this.book = books[0];
+          books => { 
+            if(books){
+              this.book = books[0];
+            }                       
           }
         );
     });

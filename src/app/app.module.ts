@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, delay: 3000 }
     )
   ],  
   providers: [],
