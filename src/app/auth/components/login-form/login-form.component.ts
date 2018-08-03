@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Auth, IAuth } from "../../models";
 
 @Component({
@@ -8,6 +8,8 @@ import { Auth, IAuth } from "../../models";
 })
 export class LoginFormComponent implements OnInit {
 
+  @Output() submitted = new EventEmitter<IAuth>();
+  @Output() signByGoogle = new EventEmitter<boolean>();
   login : IAuth;
 
   constructor() {
@@ -17,8 +19,12 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit() {
-    console.log(this.login);
+  submit() {    
+    this.submitted.emit(this.login);
+  }
+
+  signGoogle() {
+    this.signByGoogle.emit(true);
   }
 
 }
