@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.authFire.auth.signInWithPopup(new auth.GoogleAuthProvider)
       .then(
         auth => {
-          this.authService.login(this.authFire.auth.currentUser);
+          this.authService.login(this.authFire.auth.currentUser);          
         },
         error => {
           alert(error.message);
