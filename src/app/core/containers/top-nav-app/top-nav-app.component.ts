@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { BooksListService } from '../../../books/services/list/books-list.service';
 
 @Component({
   selector: 'app-top-nav-app',
@@ -10,7 +11,7 @@ export class TopNavAppComponent implements OnInit {
   @Output() actionAside = new EventEmitter<string>();
   state: string;
 
-  constructor() { 
+  constructor(private bookService: BooksListService) { 
     this.state = 'open';
   }
 
@@ -20,6 +21,10 @@ export class TopNavAppComponent implements OnInit {
   closeAside() {
     this.state = (this.state === 'close') ? 'open' : 'close';
     this.actionAside.emit(this.state);
+  }
+
+  searchText(event : string){
+    this.bookService.searchBooks(event, 0, 20);
   }
 
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AngularFireAuth } from "angularfire2/auth";
 import { auth } from 'firebase';
 import { IAuth } from '../../models';
 import { AuthService } from "../../services/auth/auth.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,33 +12,39 @@ import { AuthService } from "../../services/auth/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private authFire:AngularFireAuth) { }
+  constructor(private authService: AuthService, private authFire:AngularFireAuth, private router: Router,
+    private zone: NgZone) { }
 
   ngOnInit() {
   }
 
   login(event : IAuth){
-    //
-    this.authFire.auth.signInWithEmailAndPassword(event.email, event.password)
+
+    this.authService.login(event)
     .then(
       auth => {
-        this.authService.login(this.authFire.auth.currentUser);
+        localStorage.setItem('bzgBooksApp', JSON.stringify(auth));
+        this.router.navigate(['main']);
       },
       error => {
         alert(error.message);
       }
-    );
+    );        
   }
 
   signGoogle(event){
     if(event){
-      this.authFire.auth.signInWithPopup(new auth.GoogleAuthProvider)
+      this.authService.signInWithGoogle()
       .then(
-        auth => {
-          this.authService.login(this.authFire.auth.currentUser);          
-        },
-        error => {
-          alert(error.message);
+        data => {          
+          localStorage.setItem('bzgBooksApp', JSON.stringify(data));
+          this.zone.run(() => {            
+            this.router.navigate(['main/books/list']);
+          });          
+        }
+      ).catch(
+        (err) => {
+          console.log(err);
         }
       );
     }

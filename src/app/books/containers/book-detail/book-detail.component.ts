@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-//import { books } from "../../../data-books";
 import { BooksListService } from "../../services/list/books-list.service";
 
 @Component({
@@ -21,15 +20,19 @@ export class BookDetailComponent implements OnInit {
     //id = this.router.snapshot.paramMap.get('id');
     this.router.params.subscribe((params: Params) => {
       id = params.id;
-      this.bookService.getBookList(id)
+      this.bookService.getBook(id)
         .subscribe(
-          books => { 
-            if(books){
-              this.book = books[0];
-            }                       
+          books => {
+            if (books) {
+              this.book = books;
+            }
           }
         );
     });
+  }
+  
+  addFavorite(book) {
+    //this.bookService.addFavorites(book);
   }
 
 }

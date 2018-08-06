@@ -2,25 +2,56 @@ import { Injectable } from '@angular/core';
 import { IAuth } from '../../models';
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "angularfire2/auth";
+import * as firebase from "firebase/app";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private router: Router, private authFire:AngularFireAuth) { }
+  private user: Observable<firebase.User>;
+  private userDetails: firebase.User = null;
 
-  login(auth : any){
-    localStorage.setItem('bzgBooksApp2', JSON.stringify(auth));
-    this.router.navigate(['/main/books/list']);
+  constructor(private router: Router, private authFire: AngularFireAuth) {
+    this.user = authFire.authState;
+    this.user
+      .subscribe(
+        (user) => {
+          if (user) {
+            this.userDetails = user;
+          } else {
+            this.userDetails = null;
+          }
+        }
+      );
   }
 
-  logout(){
-    localStorage.removeItem('bzgBooksApp2');
-    this.authFire.auth.signOut().then(
-      data => {
-        this.router.navigate(['/login']);
-      }
-    );    
+  signInWithGoogle() {
+    return this.authFire.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    )
+  }
+
+  login(auth: any) {
+    return this.authFire.auth.signInWithEmailAndPassword(auth.email, auth.password);
+  }
+
+  isLoggedIn() {
+    if (this.userDetails == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('bzgBooksApp');
+    this.authFire.auth.signOut()
+      .then(
+        data => {
+          this.router.navigate(['/login']);
+        }
+      );
   }
 }

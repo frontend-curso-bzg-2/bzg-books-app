@@ -11,6 +11,7 @@ import { MainContentComponent } from "./containers/main-content/";
 import { TopNavAppComponent } from "./containers/top-nav-app/";
 import { MenuAsideLeftComponent } from "./components/menu-aside-left/";
 import { TopAsideLeftComponent } from "./components/top-aside-left/";
+import { SearchFormComponent } from './components/search-form/search-form.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { TopAsideLeftComponent } from "./components/top-aside-left/";
     AlertsModule,
     AuthModule
   ],
-  declarations: [CoreComponent, AsideLeftComponent, MainContentComponent, TopAsideLeftComponent, TopNavAppComponent, MenuAsideLeftComponent],
+  declarations: [CoreComponent, AsideLeftComponent, MainContentComponent, TopAsideLeftComponent, TopNavAppComponent, MenuAsideLeftComponent, SearchFormComponent],
   exports: [CoreComponent]
 })
 export class CoreModule { }
