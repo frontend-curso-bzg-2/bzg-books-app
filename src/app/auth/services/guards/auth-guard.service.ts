@@ -12,7 +12,8 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate():Observable<boolean>{
-    if(!this.authService.isLoggedIn() && !localStorage.getItem('bzgBooksApp')){
+    
+    if(!this.authService.isLoggedIn() && !localStorage.getItem('bzgBooksApp2')){
       this.router.navigate(['/login']);
       return of(false);
     }

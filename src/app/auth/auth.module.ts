@@ -9,8 +9,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule    
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   declarations: [LoginComponent, LoginFormComponent]
 })

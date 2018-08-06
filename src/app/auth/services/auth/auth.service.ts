@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAuth } from '../../models';
+import { IAuth, Auth } from '../../models';
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "angularfire2/auth";
 import * as firebase from "firebase/app";
@@ -15,11 +15,12 @@ export class AuthService {
 
   constructor(private router: Router, private authFire: AngularFireAuth) {
     this.user = authFire.authState;
+
     this.user
       .subscribe(
         (user) => {
           if (user) {
-            this.userDetails = user;
+            this.userDetails = user;            
           } else {
             this.userDetails = null;
           }
@@ -33,8 +34,8 @@ export class AuthService {
     )
   }
 
-  login(auth: any) {
-    return this.authFire.auth.signInWithEmailAndPassword(auth.email, auth.password);
+  login(auth: Auth) {    
+    return this.authFire.auth.signInWithEmailAndPassword(auth.email, auth.password)
   }
 
   isLoggedIn() {
@@ -45,13 +46,10 @@ export class AuthService {
     }
   }
 
+
   logout() {
-    localStorage.removeItem('bzgBooksApp');
+    localStorage.removeItem('bzgBooksApp2');
     this.authFire.auth.signOut()
-      .then(
-        data => {
-          this.router.navigate(['/login']);
-        }
-      );
+      .then((res) => this.router.navigate(['/login']));
   }
 }

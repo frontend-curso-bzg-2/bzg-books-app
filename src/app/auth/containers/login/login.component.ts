@@ -3,7 +3,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { auth } from 'firebase';
 import { IAuth } from '../../models';
 import { AuthService } from "../../services/auth/auth.service";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,24 +12,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private authFire:AngularFireAuth, private router: Router,
-    private zone: NgZone) { }
+  constructor(private authService: AuthService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
   }
 
   login(event : IAuth){
-
+    //
     this.authService.login(event)
     .then(
       auth => {
-        localStorage.setItem('bzgBooksApp', JSON.stringify(auth));
+        localStorage.setItem('bzgBooksApp2', JSON.stringify(auth));
         this.router.navigate(['main']);
       },
       error => {
         alert(error.message);
       }
-    );        
+    );
   }
 
   signGoogle(event){
@@ -37,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.authService.signInWithGoogle()
       .then(
         data => {          
-          localStorage.setItem('bzgBooksApp', JSON.stringify(data));
+          localStorage.setItem('bzgBooksApp2', JSON.stringify(data));
           this.zone.run(() => {            
             this.router.navigate(['main/books/list']);
           });          

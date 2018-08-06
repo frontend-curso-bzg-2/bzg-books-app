@@ -6,15 +6,13 @@ import { BookDetailComponent } from "./containers/book-detail/";
 export const routes: Routes = [
     {
         path: 'list',
-        component: BooksMainComponent,
-        canActivate: [AuthGuardService]
+        component: BooksMainComponent        
     },
     {
         path: '', redirectTo: 'list', pathMatch: 'full'
     },
     {
         path: 'detail/:id',
-        component: BookDetailComponent,
-        canActivate: [AuthGuardService]
+        component: BookDetailComponent
     }
 ];

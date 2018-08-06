@@ -8,10 +8,10 @@ import { BooksListService } from '../../../books/services/list/books-list.servic
 })
 export class TopNavAppComponent implements OnInit {
 
-  @Output() actionAside = new EventEmitter<string>();
+  @Output() actionAside = new EventEmitter<string>();  
   state: string;
 
-  constructor(private bookService: BooksListService) { 
+  constructor(private _bookService: BooksListService) { 
     this.state = 'open';
   }
 
@@ -24,7 +24,7 @@ export class TopNavAppComponent implements OnInit {
   }
 
   searchText(event : string){
-    this.bookService.searchBooks(event, 0, 20);
+    this._bookService.searchBooks(event, 0, 20);
   }
 
 }

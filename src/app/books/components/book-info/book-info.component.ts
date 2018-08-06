@@ -12,7 +12,8 @@ export class BookInfoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
   }
 
   addFavorite(){
