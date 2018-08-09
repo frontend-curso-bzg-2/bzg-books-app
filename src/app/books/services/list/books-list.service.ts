@@ -54,8 +54,7 @@ export class BooksListService {
   }
 
   addFavorites(book: any) {
-    const promise = this.favsRef.push(book);
-    promise.then(_ => this.alertService.message("Agregado a Favoritos", "success"));
+    this.favsRef.push(book).then(_ => this.alertService.message("Agregado a Favoritos", "success"));
 
   }  
 

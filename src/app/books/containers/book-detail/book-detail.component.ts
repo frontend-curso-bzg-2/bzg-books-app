@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-//import { books } from "../../../data-books";
 import { BooksListService } from "../../services/list/books-list.service";
 
 @Component({
