@@ -1,11 +1,11 @@
 import { LayoutActions, LayoutActionTypes } from "../actions/layout";
 
 export interface State  {
-    showSideNav: boolean
+    showSideNav: string
 }
 
 const initialState:State = {
-    showSideNav: true
+    showSideNav: 'open'
 }
 
 export function reducer (state: State = initialState, action: LayoutActions) : State {
@@ -13,12 +13,12 @@ export function reducer (state: State = initialState, action: LayoutActions) : S
         case LayoutActionTypes.OpenSideNav: 
             return {
                 ...state,
-                showSideNav: true
+                showSideNav: 'open'
             }
         case LayoutActionTypes.CloseSideNav:
             return {
                 ...state,
-                showSideNav: false
+                showSideNav: 'close'
             }
         default:
             return state;
