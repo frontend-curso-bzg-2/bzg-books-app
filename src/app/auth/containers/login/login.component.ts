@@ -1,9 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AngularFireAuth } from "angularfire2/auth";
-import { auth } from 'firebase';
 import { IAuth } from '../../models';
 import { AuthService } from "../../services/auth/auth.service";
 import { Router } from "@angular/router";
+import { Store, select } from "@ngrx/store";
+import * as fromAuth from "../../reducers";
+import * as Auth from "../../actions/auth";
+import { MessagesService } from "../../../alerts/services/messages.service";
 
 @Component({
   selector: 'app-login',
@@ -12,40 +14,61 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private zone: NgZone) { }
+  pending$ = this.store.pipe(select(fromAuth.getPending));
+  error$ = this.store.pipe(select(fromAuth.getError));
+  success$ = this.store.pipe(select(fromAuth.getLoggedIn));
+
+  constructor(private authService: AuthService, private router: Router, private zone: NgZone,
+    private store: Store<fromAuth.State>, private alertMsg: MessagesService) { }
 
   ngOnInit() {
-  }
-
-  login(event : IAuth){
-    //
-    this.authService.login(event)
-    .then(
-      auth => {
-        localStorage.setItem('bzgBooksApp2', JSON.stringify(auth));
-        this.router.navigate(['main']);
-      },
+    this.error$.subscribe(
       error => {
-        alert(error.message);
+        this.alertMsg.message('Usuario o Contraseña incorrecta', 'error');
+      }
+    );
+
+    this.success$.subscribe(
+      success => {
+        console.log("Entro: " + success);
+        if(success){
+          this.router.navigate(['main']);
+        }
       }
     );
   }
 
-  signGoogle(event){
-    if(event){
-      this.authService.signInWithGoogle()
+  login(event: IAuth) {
+    //
+    this.store.dispatch(new Auth.Login());
+    this.authService.login(event)
       .then(
-        data => {          
-          localStorage.setItem('bzgBooksApp2', JSON.stringify(data));
-          this.zone.run(() => {            
-            this.router.navigate(['main/books/list']);
-          });          
-        }
-      ).catch(
-        (err) => {
-          console.log(err);
+        auth => {
+          localStorage.setItem('bzgBooksApp2', JSON.stringify(auth.user));
+          this.store.dispatch(new Auth.LoginSuccess(auth.user.uid));
+        },
+        error => {
+          this.store.dispatch(new Auth.LoginFailure(error));
         }
       );
+  }
+
+  signGoogle(event) {
+    if (event) {
+      this.store.dispatch(new Auth.Login());
+      this.authService.signInWithGoogle()
+        .then(
+          auth => {
+            localStorage.setItem('bzgBooksApp2', JSON.stringify(auth.user));            
+            this.zone.run(() => {
+              this.store.dispatch(new Auth.LoginSuccess(auth.user.uid));
+            });
+          }
+        ).catch(
+          (err) => {
+            this.store.dispatch(new Auth.LoginFailure(err));
+          }
+        );
     }
   }
 

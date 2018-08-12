@@ -19,6 +19,13 @@ import { environment } from "../environments/environment";
 import { AppComponent } from './app.component';
 import { reducers, metaReducer } from './reducer/reducer';
 
+const firebase = {
+  apiKey: 'AIzaSyCuHctOJyQAB8ynqwxZ3wg6QVrYW-hW9p0',
+  authDomain: 'bzg-books-app-2.firebaseapp.com',
+  databaseURL: 'https://bzg-books-app-2.firebaseio.com/',
+  projectId: 'bzg-books-app-2'        
+};
+
 @NgModule({
   declarations: [
     AppComponent  
@@ -33,7 +40,7 @@ import { reducers, metaReducer } from './reducer/reducer';
     /**HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false, delay: 3000 }
     ), **/   
-    AngularFireModule.initializeApp(environment.firebase, 'bzg-books-app-2'),
+    AngularFireModule.initializeApp(firebase, 'bzg-books-app-2'),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     StoreModule.forRoot(reducers, {metaReducers: metaReducer}),

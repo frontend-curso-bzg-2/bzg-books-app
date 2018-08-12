@@ -26,8 +26,10 @@ export class BooksListService {
     authFire.authState
       .subscribe(
         user => {
-          this.user = user;
-          this.favsRef = rdb.list('favorites/' + this.user.uid);
+          if (user) {
+            this.user = user;
+            this.favsRef = rdb.list('favorites/' + this.user.uid);
+          }
         }
       );
   }
@@ -56,7 +58,7 @@ export class BooksListService {
   addFavorites(book: any) {
     this.favsRef.push(book).then(_ => this.alertService.message("Agregado a Favoritos", "success"));
 
-  }  
+  }
 
   getBook(id: string): Observable<any> {
     let url = this.url + `volumes/${id}`;

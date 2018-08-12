@@ -6,7 +6,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-
+    <app-alert-messages></app-alert-messages>
     <app-login-form (submitted)="login($event)" (signByGoogle)="signGoogle($event)"></app-login-form>
 
   </div>
